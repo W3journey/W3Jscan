@@ -2,7 +2,7 @@
 
 W3Jscan is an Ethereum Block Explorer built as part of the Alchemy University lesson. It allows users to explore Ethereum blocks, transactions, and token balances for specific addresses.
 
-![W3Jscan Screenshot](https://github.com//W3journey/W3Jscan/media/repo-header.png)
+![W3Jscan Screenshot](https://github.com/W3journey/W3Jscan/blob/main/media/repo-header.png)
 
 ## Technologies Used
 
