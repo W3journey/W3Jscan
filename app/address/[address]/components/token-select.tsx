@@ -18,6 +18,7 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { OwnedToken } from "alchemy-sdk"
 import { isSpamToken } from "@/lib/utils"
+import { Button } from "@/components/ui/button"
 
 interface TokenSelectProps {
   data: OwnedToken[]
@@ -25,6 +26,7 @@ interface TokenSelectProps {
 
 const TokenSelect: React.FC<TokenSelectProps> = ({ data }) => {
   const [isMounted, setIsMounted] = useState(false)
+  const [query, setQuery] = useState("")
   const router = useRouter()
 
   useEffect(() => {
@@ -49,42 +51,59 @@ const TokenSelect: React.FC<TokenSelectProps> = ({ data }) => {
       <SelectContent>
         <SelectGroup className="space-y-2">
           <SelectLabel>
-            <Input placeholder="Search for Token Name" />
+            <div className="relative">
+              <Input
+                placeholder="Search for Token Name"
+                onChange={(e) => setQuery(e.target.value)}
+                value={query}
+              />
+              {query.length > 0 && (
+                <Button
+                  className="absolute top-0 right-0 rounded-l-none text-muted-foreground"
+                  variant="ghost"
+                  onClick={() => setQuery("")}
+                >
+                  Clear
+                </Button>
+              )}
+            </div>
           </SelectLabel>
           <ScrollArea className="h-96">
             <div className="mb-2 space-y-2">
-              {filteredTokens.map((token) => {
-                return (
-                  <div
-                    key={token.contractAddress}
-                    className="px-2 mx-5 border-b rounded-md hover:bg-accent hover:cursor-pointer"
-                    onClick={() =>
-                      router.push(`/address/${token.contractAddress}`)
-                    }
-                  >
-                    <div className="flex items-center gap-1">
-                      <div className="relative w-4 h-4">
-                        {token.logo ? (
-                          <Image
-                            className="object-cover"
-                            src={token.logo}
-                            alt={`${token.symbol} logo`}
-                            fill
-                          />
-                        ) : (
-                          <HelpCircle className="w-4 h-4" />
-                        )}
+              {filteredTokens
+                .filter((token) => token.name?.toLowerCase().includes(query))
+                .map((token) => {
+                  return (
+                    <div
+                      key={token.contractAddress}
+                      className="px-2 mx-5 border-b rounded-md hover:bg-accent hover:cursor-pointer"
+                      onClick={() =>
+                        router.push(`/address/${token.contractAddress}`)
+                      }
+                    >
+                      <div className="flex items-center gap-1">
+                        <div className="relative w-4 h-4">
+                          {token.logo ? (
+                            <Image
+                              className="object-cover"
+                              src={token.logo}
+                              alt={`${token.symbol} logo`}
+                              fill
+                            />
+                          ) : (
+                            <HelpCircle className="w-4 h-4" />
+                          )}
+                        </div>
+                        <span>{token.name}</span>
+                        <span>({token.symbol})</span>
                       </div>
-                      <span>{token.name}</span>
-                      <span>({token.symbol})</span>
+                      <div className="flex items-center gap-1">
+                        <span>{token.balance}</span>
+                        <span>{token.symbol}</span>
+                      </div>
                     </div>
-                    <div className="flex items-center gap-1">
-                      <span>{token.balance}</span>
-                      <span>{token.symbol}</span>
-                    </div>
-                  </div>
-                )
-              })}
+                  )
+                })}
               <p className="text-sm text-center text-muted-foreground">
                 Tokens considered spam are automatically filtered out
               </p>
