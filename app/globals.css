@@ -10,6 +10,8 @@ body,
 
 @layer base {
   :root {
+    --svg-fill-color: 210, 25%, 8%;
+
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
 
@@ -46,6 +48,8 @@ body,
   }
 
   .dark {
+    --svg-fill-color: #e7e9ea;
+
     --background: 240 10% 3.9%;
     --foreground: 0 0% 98%;
 
