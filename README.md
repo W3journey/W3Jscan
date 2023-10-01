@@ -18,7 +18,7 @@ W3Jscan is an Ethereum Block Explorer built as part of the Alchemy University le
 
 To run the project locally, follow these steps:
 
-1. Clone the repository: `git clone https://github.com/your-username/W3Jscan.git`
+1. Clone the repository: `git clone https://github.com/W3journey/W3Jscan.git`
 2. Install dependencies: `npm install`
 3. Set up environment variables: `ALCHEMY_API_KEY=YOUR_API_KEY`.
 4. Run the development server: `npm run dev`
